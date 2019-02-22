@@ -10,7 +10,7 @@ print(mnist)
 
 #設置參數
 learning_rate = 0.01
-training_epochs = 25
+training_epochs = 100
 batch_size = 100
 display_step = 1
 
