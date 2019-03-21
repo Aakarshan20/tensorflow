@@ -1,52 +1,28 @@
-# 导入tensorflow
-import tensorflow as tf
+import tensorflow as tf 
+
 # 新建一个Session
 with tf.Session() as sess:
-    # 我们要读三幅图片plate1.jpg, plate2.jpg, plate3.jpg
+    #要讀的圖片plate1.jpg, plate2.jpg, plate3.jpg
     filename = ['images/plate1.jpg', 'images/plate2.jpg', 'images/plate3.jpg']
-    # string_input_producer会产生一个文件名队列
+    # string_input_producer 產生文件名隊列
+    #num_epoch 為迭代次數 此處為五 代表共要讀15次
+    #shuffle=True代表會先打亂filename 然後再進filename的隊列中
     filename_queue = tf.train.string_input_producer(filename, shuffle=True, num_epochs=5)
-    # reader从文件名队列中读数据。对应的方法是reader.read
-    reader = tf.WholeFileReader()
-    #key, value = reader.read(filename_queue)
-
-    '''
-    # tf.train.string_input_producer定义了一个epoch变量，要对它进行初始化
-    tf.local_variables_initializer().run()
-    # 使用start_queue_runners之后，才会开始填充队列
-    threads = tf.train.start_queue_runners(sess=sess)
-    #i = 0
     
+    reader = tf.WholeFileReader()
+    key, value = reader.read(filename_queue)
+    # tf.train.string_input_producer中有 epoch 所以要初始化
+    tf.local_variables_initializer().run()
+    # 使用start_queue_runners之後才會填充隊列 不然會阻塞
+    threads = tf.train.start_queue_runners(sess=sess)
+    i = 0
     while True:
         i += 1
-        # 获取图片数据并保存
+        # 讀圖加存圖
         image_data = sess.run(value)
         with open('tfIO/test_%d.jpg' % i, 'wb') as f:
             f.write(image_data)
-    '''
+            print(filename_queue)
+        #if i==3:
+            #break
 
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-
-
-
-    

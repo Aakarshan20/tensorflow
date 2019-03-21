@@ -1,6 +1,3 @@
-
-
-# 导入tensorflow
 import tensorflow as tf 
 
 # 新建一个Session
@@ -8,7 +5,7 @@ with tf.Session() as sess:
     # 我们要读三幅图片plate1.jpg, plate2.jpg, plate3.jpg
     filename = ['images/plate1.jpg', 'images/plate2.jpg', 'images/plate3.jpg']
     # string_input_producer会产生一个文件名队列
-    filename_queue = tf.train.string_input_producer(filename, shuffle=True, num_epochs=5)
+    filename_queue = tf.train.string_input_producer(filename, shuffle=False, num_epochs=5)
     # reader从文件名队列中读数据。对应的方法是reader.read
     reader = tf.WholeFileReader()
     key, value = reader.read(filename_queue)
@@ -23,6 +20,6 @@ with tf.Session() as sess:
         image_data = sess.run(value)
         with open('tfIO/test_%d.jpg' % i, 'wb') as f:
             f.write(image_data)
-        if i==3:
-            break
+        #if i==3:
+            #break
 
